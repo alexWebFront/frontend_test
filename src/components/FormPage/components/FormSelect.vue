@@ -1,13 +1,20 @@
 <template>
-  <div :class="$style.SelectWrapper">
-    <label :class="$style.label">{{ label }}</label>
+  <div
+    v-if="options"
+    :class="$style.SelectWrapper"
+  >
+    <label
+      v-if="label"
+      :class="$style.label"
+    >
+      {{ label }}
+    </label>
 
     <select
       :class="$style.formSelect"
       :value="modelValue"
       @change="$emit('update:modelValue', $event.target.value)"
     >
-      <option value="" disabled>{{ label }}</option>
       <option
         v-for="(option, index) in options"
         :key="index"

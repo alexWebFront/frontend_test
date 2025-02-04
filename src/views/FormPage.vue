@@ -9,37 +9,40 @@
     <form :class="$style.form">
       <div :class="$style.formContainer">
         <FormSelect
-          v-model="selectedCity"
+          v-model="selectedData.selectedCity"
           :label="CITIES_LABEL"
           :options="citiesArr"
         />
 
         <FormSelect
-          v-model="selectedWorkshop"
+          v-model="selectedData.selectedWorkshop"
           :label="WORKSHOPS_LABEL"
           :options="workshops"
         />
 
         <FormSelect
-          v-model="selectedEmployee"
+          v-model="selectedData.selectedEmployee"
           :label="EMPLOYEE_LABEL"
           :options="employee"
         />
 
         <FormSelect
-          v-model="selectedBrigade"
+          v-model="selectedData.selectedBrigade"
           :label="BRIGADE_LABEL"
           :options="brigade"
         />
 
         <FormSelect
-          v-model="selectedShift"
+          v-model="selectedData.selectedShift"
           :label="SHIFTS_LABEL"
           :options="shifts"
         />
       </div>
 
-      <div :class="$style.formButton">
+      <div
+        :class="$style.formButton"
+        @click="setData"
+      >
         {{ FORM_BUTTON_TEXT }}
       </div>
     </form>
@@ -81,11 +84,13 @@ export default {
 
   data () {
     return {
-      selectedCity: '',
-      selectedWorkshop: '',
-      selectedEmployee: '',
-      selectedBrigade: '',
-      selectedShift: '',
+      selectedData: {
+        selectedCity: '',
+        selectedWorkshop: '',
+        selectedEmployee: '',
+        selectedBrigade: '',
+        selectedShift: ''
+      },
 
       citiesArr: ['Moscow', 'Novosibirsk'],
       cityData: {
@@ -116,19 +121,55 @@ export default {
 
   computed: {
     cityDetails () {
-      return this.selectedCity ? this.cityData[this.selectedCity] : {}
+      return this.selectedData.selectedCity ? this.cityData[this.selectedData.selectedCity] : {}
     },
     workshops () {
+      if (!this.cityDetails) {
+        return []
+      }
       return this.cityDetails.workshops || []
     },
     employee () {
+      if (!this.cityDetails) {
+        return []
+      }
       return this.cityDetails.employee || []
     },
     brigade () {
+      if (!this.cityDetails) {
+        return []
+      }
       return this.cityDetails.brigade || []
     },
     shifts () {
+      if (!this.cityDetails) {
+        return []
+      }
       return this.cityDetails.shifts || []
+    }
+  },
+
+  methods: {
+    setData (event) {
+      event.preventDefault()
+
+      const selectedData = {
+        city: this.selectedData.selectedCity,
+        workshop: this.selectedData.selectedWorkshop,
+        employee: this.selectedData.selectedEmployee,
+        brigade: this.selectedData.selectedBrigade,
+        shift: this.selectedData.selectedShift
+      }
+
+      document.cookie = `formData=${JSON.stringify(selectedData)}; path=/`
+
+      this.selectedData.selectedCity = []
+      this.selectedData.selectedWorkshop = []
+      this.selectedData.selectedEmployee = []
+      this.selectedData.selectedBrigade = []
+      this.selectedData.selectedShift = []
+
+      alert('Данные сохранены')
     }
   }
 }
@@ -164,15 +205,7 @@ export default {
   margin-top: 2rem;
   border: 1px solid black;
   padding: 1rem;
+  cursor: pointer;
 }
 
-.formSelect {
-  margin-bottom: 1rem;
-}
-
-.formListWrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-}
 </style>
