@@ -89,7 +89,7 @@ export default {
         selectedWorkshop: '',
         selectedEmployee: '',
         selectedBrigade: '',
-        selectedShift: ''
+        selectedShift: '',
       },
 
       citiesArr: ['Moscow', 'Novosibirsk'],
@@ -98,14 +98,14 @@ export default {
           workshops: ['Цех-1', 'Цех-2', 'Цех-3'],
           employee: ['Работник-1', 'Работник-2', 'Работник-3'],
           brigade: ['Бригада-1', 'Бригада-2', 'Бригада-3'],
-          shifts: ['Смена-1', 'Смена-2', 'Смена-3']
+          shifts: ['Смена-1', 'Смена-2', 'Смена-3'],
         },
         Novosibirsk: {
           workshops: ['Цех-4'],
           employee: ['Работник-4', 'Работник-5'],
           brigade: ['Бригада-4', 'Бригада-5', 'Бригада-6'],
-          shifts: ['Смена-4', 'Смена-5', 'Смена-6']
-        }
+          shifts: ['Смена-4', 'Смена-5', 'Смена-6'],
+        },
       },
 
       TEST_DESCRIPTION,
@@ -115,7 +115,7 @@ export default {
       WORKSHOPS_LABEL,
       EMPLOYEE_LABEL,
       BRIGADE_LABEL,
-      SHIFTS_LABEL
+      SHIFTS_LABEL,
     }
   },
 
@@ -146,7 +146,7 @@ export default {
         return []
       }
       return this.cityDetails.shifts || []
-    }
+    },
   },
 
   methods: {
@@ -158,7 +158,7 @@ export default {
         workshop: this.selectedData.selectedWorkshop,
         employee: this.selectedData.selectedEmployee,
         brigade: this.selectedData.selectedBrigade,
-        shift: this.selectedData.selectedShift
+        shift: this.selectedData.selectedShift,
       }
 
       document.cookie = `formData=${JSON.stringify(selectedData)}; path=/`
@@ -170,8 +170,8 @@ export default {
       this.selectedData.selectedShift = []
 
       alert('Данные сохранены')
-    }
-  }
+    },
+  },
 }
 </script>
 

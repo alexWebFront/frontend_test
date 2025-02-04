@@ -33,19 +33,19 @@ export default {
   props: {
     options: {
       type: [Array, Object],
-      default: () => []
+      default: () => [],
     },
 
     modelValue: {
       type: String,
-      default: ''
+      default: '',
     },
 
     label: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 
