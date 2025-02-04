@@ -1,7 +1,11 @@
 <template>
   <div :class="$style.SelectWrapper">
+    <label :class="$style.label">{{ label }}</label>
+
     <select
       :class="$style.formSelect"
+      :value="modelValue"
+      @change="$emit('update:modelValue', $event.target.value)"
     >
       <option value="" disabled>{{ label }}</option>
       <option
@@ -21,8 +25,13 @@ export default {
 
   props: {
     options: {
-      type: Array,
+      type: [Array, Object],
       default: () => []
+    },
+
+    modelValue: {
+      type: String,
+      default: ''
     },
 
     label: {
@@ -35,10 +44,14 @@ export default {
 
 <style lang="scss" module>
 .SelectWrapper {
-  //
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.formSelect {
-  //
+.label {
+  margin-bottom: .2rem;
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>
